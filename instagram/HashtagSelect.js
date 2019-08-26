@@ -8,8 +8,11 @@ import {
     Image,
     Button,
     TextInput,
+    StyleSheet,
 } from 'react-native';
 import { thisExpression } from '@babel/types';
+
+
 
 class HashtagSelect extends Component {
 
@@ -25,6 +28,8 @@ class HashtagSelect extends Component {
             inputHashtag: '',
         };
     }
+
+
 
     //this fetches images from an account based off the access_token
     handleDisplayImages = () => {
@@ -65,7 +70,7 @@ class HashtagSelect extends Component {
     render() {
         return (
             <View>
-                <ScrollView>
+                <ScrollView >
                     <TextInput
                         onChangeText={(inputHashtag) => this.setState({ inputHashtag })}
                         value={this.state.inputHashtag} placeholder='Enter a hashtag...'
@@ -79,14 +84,27 @@ class HashtagSelect extends Component {
                     }}>
                         {this.state.hashtagList.map((name, index) => <Picker.Item key={index} label={name} value={name} />)}
                     </Picker>
-                    {this.state.displayImages.map(function (name, index) {
-                        return <Image key={index} source={{ uri: name }} style={{ width: 300, height: 300 }} />
-                    })}
+                    <View style={styles.basicCenter}>
+                        {this.state.displayImages.map(function (name, index) {
+                            return <Image key={index} source={{ uri: name }} style={styles.imageStyle} />
+                        })}
+                    </View>
                 </ScrollView>
             </View>
         );
 
     }
 }
+
+const styles = StyleSheet.create({
+    imageStyle: {
+        height: 300,
+        width: 300
+    },
+    basicCenter: {
+        alignItems: 'center'
+    }
+});
+
 
 export default HashtagSelect;
